@@ -14,6 +14,11 @@ public class CategoryController {
 
     private CategoryService categoryService;
 
+    @GetMapping("/echo")
+    public ResponseEntity<String> echoMessage(@RequestParam(name="message", defaultValue = "Default message.! Please reset !") String message) {
+        return new ResponseEntity<>("Echo Message : " + message, HttpStatus.OK);
+    }
+
     public CategoryController(CategoryService categoryService) {
         this.categoryService = categoryService;
     }
