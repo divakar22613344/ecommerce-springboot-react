@@ -1,6 +1,5 @@
 package com.ecommerce.project.controller;
 
-import com.ecommerce.project.model.Category;
 import com.ecommerce.project.payload.CategoryDTO;
 import com.ecommerce.project.payload.CategoryResponse;
 import com.ecommerce.project.service.CategoryService;
@@ -32,15 +31,15 @@ public class CategoryController {
     }
 
     @RequestMapping(value="/admin/categories/{categoryId}", method=RequestMethod.DELETE)
-    public ResponseEntity deleteCategory(@PathVariable("categoryId") Long categoryId) {
-        String status = categoryService.deleteCategory(categoryId);
-        return new ResponseEntity<>(status, HttpStatus.OK);
+    public ResponseEntity<CategoryDTO> deleteCategory(@PathVariable("categoryId") Long categoryId) {
+        CategoryDTO deletedCategory = categoryService.deleteCategory(categoryId);
+        return new ResponseEntity<>(deletedCategory, HttpStatus.OK);
     }
 
     @RequestMapping(value="/public/categories/{categoryID}", method=RequestMethod.PUT)
-    public ResponseEntity<String> updateCategory(@Valid @RequestBody Category category,@PathVariable Long categoryID) {
-        Category savedCategory = categoryService.updateCategory(category,categoryID);
-        return new ResponseEntity<>("Category with Category ID: "+  categoryID, HttpStatus.OK);
+    public ResponseEntity<CategoryDTO> updateCategory(@Valid @RequestBody CategoryDTO categoryDTO,@PathVariable Long categoryID) {
+        CategoryDTO savedCategoryDTO = categoryService.updateCategory(categoryDTO,categoryID);
+        return new ResponseEntity<>(savedCategoryDTO, HttpStatus.OK);
     }
 }
 
